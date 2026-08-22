@@ -41,7 +41,7 @@ export function EnvelopeOpening({
           width: 100%;
           min-height: 100%;
           margin: 0;
-          background: #fffff4;
+          background: #ffffff;
         }
 
         .scene {
@@ -66,7 +66,7 @@ export function EnvelopeOpening({
           align-items: center;
           justify-content: center;
           padding: 20px;
-          background: radial-gradient(ellipse at 30% 20%, #fffff4 0%, #f8dbdf 40%, #f0b9c3 100%);
+          background: radial-gradient(ellipse at 30% 20%, #ffffff 0%, #FDE6D5 40%, #C1D5C0 100%);
           perspective: 1500px;
           overflow: hidden;
           font-family: "Cormorant Garamond", serif;
@@ -123,7 +123,7 @@ export function EnvelopeOpening({
         .card-container {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 50%, #fdfbf7 100%);
+          background: url('/ChatGPT Image Jul 5, 2026, 02_20_06 AM.png') center/cover no-repeat;
           border-radius: 6px;
           z-index: 2;
           overflow: hidden;
@@ -450,9 +450,9 @@ export function EnvelopeOpening({
               </div>
 
               <h1 className="text-names">
-                Apsara
+                Warsha
                 <span className="text-ampersand">&</span>
-                Teshan
+                Mennan
               </h1>
 
               <div className="divider">
@@ -464,8 +464,8 @@ export function EnvelopeOpening({
               <div className="text-details">
                 Request the honour of your presence<br />
                 to celebrate their marriage at<br />
-                <span className="text-church">Centrium Ballroom, Avenra Gardens</span><br />
-                Negombo
+                <span className="text-church">Mahogany Ballroom, Cinnamon Grand</span><br />
+                Colombo
               </div>
             </div>
           </div>

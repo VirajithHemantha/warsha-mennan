@@ -10,21 +10,12 @@ export const Location: React.FC<LocationProps> = ({ event = 'both' }) => {
   const venues = [
     {
       id: 'ceremony',
-      name: "St. Mary's Church",
-      city: "Negombo",
-      quote: `"A beautiful and sacred place where we will unite in holy matrimony."`,
-      liveLocationUrl: "https://maps.app.goo.gl/kPtBACZFd3AcKa1u9",
-      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Negombo%2C_St._Mary%27s_Church%2C_2025-07_CN-02.jpg",
+      name: "Cinnamon Grand",
+      city: "Colombo",
+      quote: `"A beautiful and sacred place where we will unite."`,
+      liveLocationUrl: "https://maps.app.goo.gl/7wcd6uLHpY8HevN66?g_st=ic",
+      imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlZqJ8sbcdedXYSrE6W1RLzA-kPHH8RHCD3ChsvgXQ-7Ze14258Qjs74oaU8u0v3e0iW7lXONAiaMXyH7r1scDJzS_1xgH_18UiSFjyZINOHYpiQR-3R8ZrOLPyuEb-8yqF6liDgvieiG4=s1360-w1360-h1020-rw",
       label: "The Ceremony"
-    },
-    {
-      id: 'reception',
-      name: "Centrium Ballroom, Avenra Gardens",
-      city: "Negombo",
-      quote: `"A serene and elegant setting where we will celebrate our wedding function with joy and laughter."`,
-      liveLocationUrl: "https://maps.app.goo.gl/3HPomRVMHdbHUbo86",
-      imageUrl: "https://www.aha.lk/img/projects/1%20%281%291565002653.jpg",
-      label: "The Reception"
     }
   ];
 

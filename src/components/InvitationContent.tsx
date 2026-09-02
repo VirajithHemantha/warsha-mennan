@@ -8,7 +8,7 @@ import { Location } from './Location';
 import { Timeline } from './Timeline';
 import { Countdown } from './Countdown';
 import { RSVPForm } from './RSVPForm';
-import { WishesSection } from './WishesSection';
+
 import { InviteeBanner } from './InviteeBanner';
 import { DeferredMount } from './DeferredMount';
 
@@ -87,19 +87,7 @@ export function InvitationContent({
       </DeferredMount>
 
       <DeferredMount active={active} delay={360} minHeight="20vh">
-        <div className="py-24 sm:py-32 relative overflow-hidden">
-          <div className="absolute inset-0">
-            <img 
-              src="/ChatGPT Image Jul 5, 2026, 02_20_06 AM.png"
-              alt="Countdown Background"
-              className="w-full h-full object-cover" 
-            />
-          </div>
-          <div className="relative z-10 max-w-6xl mx-auto px-6 mb-16 text-center">
-            <span className="text-stone-900 uppercase tracking-[0.4em] text-[10px] sm:text-[11px] font-bold drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">
-              The Wait Is Almost Over
-            </span>
-          </div>
+        <div className="py-24 sm:py-32 relative overflow-hidden bg-[#FDFBF7]">
           <div className="relative z-10">
             <Countdown targetDate={weddingDate} />
           </div>
@@ -112,11 +100,7 @@ export function InvitationContent({
         </div>
       </DeferredMount>
 
-      <DeferredMount active={active} delay={480} minHeight="30vh">
-        <div className="py-24 sm:py-32 bg-gradient-to-b from-brand-blush to-white relative mt-10 overflow-hidden">
-          <WishesSection eventParam={eventParam} inviteeName={fullInviteeName} />
-        </div>
-      </DeferredMount>
+
 
       <DeferredMount active={active} delay={520}>
         <footer className="py-12 bg-white border-t border-brand-lavender/20 text-center relative overflow-hidden mt-10">

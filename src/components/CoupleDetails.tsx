@@ -33,15 +33,24 @@ export const CoupleDetails: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="text-center lg:text-right flex-1 lg:pr-10 order-4 lg:order-1"
+          className="text-center lg:text-right flex-1 lg:pr-10 order-4 lg:order-1 relative w-full"
         >
-          <div className="mb-4 flex flex-col items-center lg:items-end">
-            <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Groom</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-stone-800 mb-2 drop-shadow-sm">Mennan</h3>
+          {/* Mobile Background Image attached only to this text section */}
+          <div className="absolute -top-60 sm:-top-72 inset-x-0 z-0 lg:hidden pointer-events-none flex justify-center items-center opacity-80 overflow-visible">
+            <img 
+              src="/ChatGPT Image Sep 3, 2026, 03_47_52 AM.png" 
+              alt="Mobile Background" 
+              className="w-full max-w-md scale-125 sm:scale-150 h-auto object-contain mix-blend-multiply"
+            />
+          </div>
+
+          <div className="mb-4 flex flex-col items-center lg:items-end relative z-10">
+            <span className="text-[#8B6508] uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Groom</span>
+            <h3 className="text-4xl sm:text-5xl font-['Cormorant_Garamond',_serif] text-stone-800 mb-2 drop-shadow-sm">Mennan</h3>
             <p className="text-stone-700 font-century text-xs mb-2"></p>
             <p className="text-stone-500/90 font-serif italic text-base sm:text-lg">Son of Mr & Mrs Prakash</p>
           </div>
-          <div className="hidden lg:flex justify-end mt-8">
+          <div className="hidden lg:flex justify-end mt-8 relative z-10">
             <Heart className="w-6 h-6 text-brand-lavender/60 fill-brand-lavender/20 transform hover:scale-110 transition-transform cursor-pointer" />
           </div>
         </motion.div>
@@ -109,8 +118,8 @@ export const CoupleDetails: React.FC = () => {
           className="text-center lg:text-left flex-1 lg:pl-10 order-2 lg:order-3"
         >
           <div className="mb-4 flex flex-col items-center lg:items-start">
-            <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Bride</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-stone-800 mb-2 drop-shadow-sm">Warsha</h3>
+            <span className="text-[#8B6508] uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block mt-28 sm:mt-36 lg:mt-0">The Bride</span>
+            <h3 className="text-4xl sm:text-5xl font-['Cormorant_Garamond',_serif] text-stone-800 mb-2 drop-shadow-sm">Warsha</h3>
             <p className="text-stone-700 font-century text-xs mb-2"></p>
             <p className="text-stone-500/90 font-serif italic text-base sm:text-lg">Daughter of Mr & Mrs Amarasinghe</p>
           </div>

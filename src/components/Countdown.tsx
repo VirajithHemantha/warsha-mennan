@@ -29,37 +29,71 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
     return () => clearInterval(timer);
   }, [targetDate]);
 
+
   return (
-    <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-10 py-6">
-      {[
-        { label: 'Days', value: timeLeft.days },
-        { label: 'Hours', value: timeLeft.hours },
-        { label: 'Minutes', value: timeLeft.minutes },
-        { label: 'Seconds', value: timeLeft.seconds },
-      ].map((item, i) => (
+    <div className="relative w-full overflow-visible flex flex-col items-center justify-center pt-10 pb-20">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-4xl mx-auto px-4">
+        <motion.span 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="uppercase tracking-[0.4em] text-[10px] sm:text-xs font-semibold mb-4 text-[#8B6508] text-center font-['Georgia',_serif]"
+        >
+          The countdown
+        </motion.span>
+        
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-['Pinyon_Script',_cursive] text-5xl sm:text-6xl md:text-7xl mb-16 sm:mb-20 text-center text-[#2A2416]"
+        >
+          Forever begins in
+        </motion.h2>
+
         <motion.div 
-          key={item.label}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ delay: i * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center min-w-[90px] sm:min-w-[130px] relative group"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 w-full"
         >
-          {/* Glass background arch */}
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-md border border-brand-lavender/40 shadow-[0_15px_30px_rgba(176,137,104,0.1)] rounded-[3rem_3rem_1rem_1rem] sm:rounded-[4rem_4rem_1.5rem_1.5rem] group-hover:shadow-[0_20px_40px_rgba(176,137,104,0.2)] transition-all duration-700 ease-out group-hover:-translate-y-3 pointer-events-none" />
-          
-          <div className="relative pt-10 pb-8 px-4 flex flex-col items-center w-full z-10 transition-transform duration-700 group-hover:-translate-y-3">
-            {/* Elegant number */}
-            <span className="text-5xl sm:text-6xl lg:text-7xl font-display font-medium text-brand-plum mb-4 drop-shadow-[0_2px_4px_rgba(176,137,104,0.3)] tabular-nums tracking-wide">
-              {String(item.value).padStart(2, '0')}
-            </span>
-            {/* Divider line */}
-            <div className="w-10 h-[1.5px] bg-gradient-to-r from-transparent via-brand-plum/50 to-transparent mb-4" />
-            {/* Label */}
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-stone-600 font-semibold">{item.label}</span>
-          </div>
+          {[
+            { label: 'Days', value: timeLeft.days },
+            { label: 'Hours', value: timeLeft.hours },
+            { label: 'Minutes', value: timeLeft.minutes },
+            { label: 'Seconds', value: timeLeft.seconds },
+          ].map((item) => (
+            <div key={item.label} className="flex flex-col items-center">
+              <div className="w-20 h-24 sm:w-28 sm:h-32 bg-white rounded-xl sm:rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.15)] flex items-center justify-center mb-4 sm:mb-5 border border-[#D4AF37]/10">
+                <span className="font-['Cormorant_Garamond',_serif] text-4xl sm:text-6xl font-medium text-[#2A2416] tabular-nums">
+                  {String(item.value).padStart(2, '0')}
+                </span>
+              </div>
+              <span className="font-['Cormorant_Garamond',_serif] text-[9px] sm:text-[11px] uppercase tracking-[0.3em] font-semibold text-[#8B6508]">
+                {item.label}
+              </span>
+            </div>
+          ))}
         </motion.div>
-      ))}
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="mt-12 sm:mt-16 w-full max-w-sm mx-auto relative z-10 px-4"
+      >
+        <img 
+          src="/ChatGPT Image Sep 3, 2026, 03_30_18 AM.png" 
+          alt="Illustration" 
+          className="w-full h-auto mix-blend-multiply opacity-90"
+        />
+      </motion.div>
+
     </div>
   );
 };

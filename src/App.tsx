@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { Toaster } from 'sonner';
 
-import { EnvelopeOpening } from './components/EnvelopeOpening';
+import { WelcomeScreen } from './components/WelcomeScreen';
 import { InvitationContent } from './components/InvitationContent';
 import { Admin } from './components/Admin';
 import { INVITATION_IMAGE_URLS, preloadImages } from './utils/preloadImages';
@@ -107,11 +107,10 @@ export default function App() {
 
       <AnimatePresence mode="wait">
         {!showInvitation && (
-          <EnvelopeOpening
-            key="envelope"
+          <WelcomeScreen
+            key="welcome"
             onComplete={handleEnvelopeComplete}
             onMusicStart={handleMusicStart}
-            event={eventParam}
             readyToTransition={assetsReady}
           />
         )}

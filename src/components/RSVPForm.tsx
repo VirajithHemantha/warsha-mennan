@@ -12,8 +12,8 @@ interface RSVPFormProps {
 export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName = 'the celebration', eventParam = 'both' }) => {
   const [formData, setFormData] = useState({
     fullName: inviteeName,
-    guests: '1',
-    dietaryNotes: '',
+    attendance: 'yes',
+    thoughts: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const scriptUrl = "https://script.google.com/macros/s/AKfycbyDuWCJjIQ7egU3VZBzAndlosVuJyfZnbGaEKA47SuOcj6iSQQys1ksRSaphGAB37V_/exec";
@@ -33,8 +33,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
       const payload = new FormData();
       payload.append('sheet', 'RSVP');
       payload.append('fullName', formData.fullName);
-      payload.append('guests', formData.guests);
-      payload.append('dietaryNotes', formData.dietaryNotes);
+      payload.append('attendance', formData.attendance);
+      payload.append('guests', formData.attendance === 'yes' ? '1' : '0'); // Fallback for old sheet column
+      payload.append('thoughts', formData.thoughts);
+      payload.append('dietaryNotes', formData.thoughts); // Fallback for old sheet column
       payload.append('event', eventParam);
 
       await fetch(scriptUrl, {
@@ -45,7 +47,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
 
       setStatus('success');
       toast.success('Your RSVP has been warmly received!');
-      setFormData({ fullName: inviteeName, guests: '1', dietaryNotes: '' });
+      setFormData({ fullName: inviteeName, attendance: 'yes', thoughts: '' });
     } catch (error) {
       console.error('Error sending RSVP: ', error);
       setStatus('error');
@@ -54,7 +56,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 relative py-10">
+    <div className="max-w-5xl mx-auto px-6 relative py-4 sm:py-6">
       {/* Premium ambient backdrop & glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-brand-lavender/15 to-transparent rounded-full blur-[100px] pointer-events-none -z-10" />
 
@@ -63,27 +65,27 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="glass p-10 sm:p-14 lg:p-16 rounded-[3rem] border border-white/40 shadow-[0_30px_60px_rgba(176,137,104,0.1)] relative overflow-hidden bg-white/60 backdrop-blur-3xl lg:flex items-center gap-16"
+        className="glass p-6 sm:p-10 lg:p-12 rounded-[2.5rem] sm:rounded-[3rem] border border-white/40 shadow-[0_30px_60px_rgba(176,137,104,0.1)] relative overflow-hidden bg-white/60 backdrop-blur-3xl lg:flex items-center gap-10 lg:gap-16"
       >
         {/* Soft top border line */}
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-rose via-brand-plum/80 to-brand-rose" />
 
         {/* Left Side: Elegant Text */}
-        <div className="lg:w-1/2 lg:pr-10 mb-12 lg:mb-0 relative text-center lg:text-left">
+        <div className="lg:w-1/2 lg:pr-6 mb-8 lg:mb-0 relative text-center lg:text-left">
           <Sparkles className="absolute -top-6 -left-6 w-12 h-12 text-brand-lavender/30 animate-pulse" />
 
-          <div className="inline-flex items-center justify-center lg:justify-start gap-4 mb-6">
+          <div className="inline-flex items-center justify-center lg:justify-start gap-4 mb-4">
             <span className="text-brand-plum uppercase tracking-[0.5em] text-[10px] sm:text-[11px] font-bold drop-shadow-sm">
               Kindly Respond
             </span>
             <div className="hidden lg:block w-16 h-[1px] bg-gradient-to-r from-brand-plum/60 to-transparent" />
           </div>
 
-          <h2 className="text-5xl sm:text-6xl font-display text-stone-800 tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display text-stone-800 tracking-tight leading-[1.1] mb-4 drop-shadow-sm">
             Reserve <span className="italic font-light text-brand-plum">Your</span> Seat
           </h2>
 
-          <p className="text-stone-500/90 font-serif text-lg leading-relaxed mb-6">
+          <p className="text-stone-500/90 font-serif text-base sm:text-lg leading-relaxed mb-6">
             {inviteeName
               ? `Dear ${inviteeName}, your presence at ${eventName} means the world to us. Please kindly let us know if you will be able to join our celebration.`
               : `Your presence means the world to us. Please kindly let us know if you will be able to join our celebration.`
@@ -125,50 +127,60 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onSubmit={handleSubmit}
-                className="space-y-6 bg-white/40 p-8 sm:p-10 rounded-[2.5rem] border border-white shadow-[0_15px_30px_rgba(0,0,0,0.05)]"
+                className="space-y-4 sm:space-y-5 bg-white/40 p-6 sm:p-8 rounded-[2rem] border border-white shadow-[0_15px_30px_rgba(0,0,0,0.05)]"
               >
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Full Name</label>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-2 ml-2">Full Name</label>
                   <input
                     required
                     type="text"
                     placeholder="E.g., John & Jane Doe"
-                    className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 font-serif italic text-lg shadow-inner placeholder:text-stone-300"
+                    className="w-full bg-white/80 px-6 py-3 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 font-serif italic text-base shadow-inner placeholder:text-stone-300"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Number of Guests</label>
-                  <div className="relative group">
-                    <select
-                      className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 appearance-none font-serif italic text-lg shadow-inner text-stone-700 cursor-pointer"
-                      value={formData.guests}
-                      onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-2 ml-2">Attendance</label>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, attendance: 'yes' })}
+                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm flex items-center justify-center gap-2 ${
+                        formData.attendance === 'yes' 
+                          ? 'bg-brand-lavender/30 border-brand-plum/50 text-brand-plum font-medium'
+                          : 'bg-white/80 border-stone-200/60 text-stone-400 hover:border-brand-lavender/50 hover:text-stone-500'
+                      }`}
                     >
-                      <option value="1">Just Me (1 Guest)</option>
-                      <option value="2">We are coming! (2 Guests)</option>
-                      <option value="3">3 Guests</option>
-                      <option value="4">4 Guests</option>
-                    </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-plum transition-transform duration-300 group-hover:scale-110">
-                      <Heart className="w-5 h-5 fill-brand-lavender/30 drop-shadow-sm" />
-                    </div>
+                      {formData.attendance === 'yes' && <Heart className="w-4 h-4 fill-brand-plum/30" />}
+                      Yes, I'll be there
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, attendance: 'no' })}
+                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm ${
+                        formData.attendance === 'no' 
+                          ? 'bg-stone-100 border-stone-300 text-stone-600 font-medium'
+                          : 'bg-white/80 border-stone-200/60 text-stone-400 hover:border-stone-300 hover:text-stone-500'
+                      }`}
+                    >
+                      Can't make it
+                    </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Dietary Notes (Optional)</label>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-2 ml-2">A thought for the couple</label>
                   <textarea
-                    placeholder="We'd love to know if you have any allergies..."
-                    className="w-full bg-white/80 px-6 py-4 rounded-[2rem] border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 h-28 resize-none font-serif italic text-lg shadow-inner placeholder:text-stone-300"
-                    value={formData.dietaryNotes}
-                    onChange={(e) => setFormData({ ...formData, dietaryNotes: e.target.value })}
+                    placeholder="Share your wishes, thoughts, or advice..."
+                    className="w-full bg-white/80 px-6 py-3 rounded-[2rem] border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 h-20 resize-none font-serif italic text-base shadow-inner placeholder:text-stone-300"
+                    value={formData.thoughts}
+                    onChange={(e) => setFormData({ ...formData, thoughts: e.target.value })}
                   />
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-2">
                   <button
                     disabled={status === 'loading'}
                     type="submit"

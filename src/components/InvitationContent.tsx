@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { Music, VolumeX, Heart } from 'lucide-react';
 import { Hero } from './Hero';
-import { FloatingPetals } from './FloatingPetals';
 import { CoupleDetails } from './CoupleDetails';
 import { CeremonyDetails } from './CeremonyDetails';
 import { Location } from './Location';
@@ -54,7 +53,6 @@ export function InvitationContent({
         )}
       </motion.button>
 
-      <FloatingPetals />
       <Hero event={eventParam} inviteeName={fullInviteeName} />
 
       {fullInviteeName && (

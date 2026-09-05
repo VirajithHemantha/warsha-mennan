@@ -16,7 +16,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
     thoughts: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbyDuWCJjIQ7egU3VZBzAndlosVuJyfZnbGaEKA47SuOcj6iSQQys1ksRSaphGAB37V_/exec";
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbxyOLqbPCF84tUg299jIyA0GuebtYFra-3C-CXxzE851QIQkOs1RRrqBKyYqP6NCSO-/exec";
 
   useEffect(() => {
     if (inviteeName) {
@@ -37,7 +37,6 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
       payload.append('guests', formData.attendance === 'yes' ? '1' : '0'); // Fallback for old sheet column
       payload.append('thoughts', formData.thoughts);
       payload.append('dietaryNotes', formData.thoughts); // Fallback for old sheet column
-      payload.append('event', eventParam);
 
       await fetch(scriptUrl, {
         method: 'POST',
@@ -147,11 +146,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, attendance: 'yes' })}
-                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm flex items-center justify-center gap-2 ${
-                        formData.attendance === 'yes' 
+                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm flex items-center justify-center gap-2 ${formData.attendance === 'yes'
                           ? 'bg-brand-lavender/30 border-brand-plum/50 text-brand-plum font-medium'
                           : 'bg-white/80 border-stone-200/60 text-stone-400 hover:border-brand-lavender/50 hover:text-stone-500'
-                      }`}
+                        }`}
                     >
                       {formData.attendance === 'yes' && <Heart className="w-4 h-4 fill-brand-plum/30" />}
                       Yes, I'll be there
@@ -159,11 +157,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, attendance: 'no' })}
-                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm ${
-                        formData.attendance === 'no' 
+                      className={`flex-1 py-3 rounded-full border transition-all duration-300 font-serif italic text-base shadow-sm ${formData.attendance === 'no'
                           ? 'bg-stone-100 border-stone-300 text-stone-600 font-medium'
                           : 'bg-white/80 border-stone-200/60 text-stone-400 hover:border-stone-300 hover:text-stone-500'
-                      }`}
+                        }`}
                     >
                       Can't make it
                     </button>

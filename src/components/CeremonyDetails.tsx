@@ -35,7 +35,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
             </h2>
 
             <p className="text-stone-500/90 font-serif text-lg sm:text-xl leading-relaxed mb-16 max-w-lg">
-                We are honored to invite you to witness our union as we exchange vows surrounded by the warmth of our loved ones.
+                We are honored to invite you to witness the beginning of our forever as we exchange vows, surrounded by the warmth and love of our cherished family and friends.
             </p>
 
             {/* Premium Timeline */}

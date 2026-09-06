@@ -105,9 +105,23 @@ export function InvitationContent({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-brand-lavender/10 blur-[80px] rounded-full pointer-events-none" />
           <Heart className="w-6 h-6 mx-auto mb-6 text-brand-plum fill-brand-lavender/20" />
           <p className="font-names text-4xl sm:text-5xl text-stone-800 mb-2">Warsha & Mennan</p>
-          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-sans text-stone-400 font-semibold block mb-8">
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-sans text-stone-400 font-semibold block mb-4">
             October 22, 2026
           </span>
+          
+          <div className="w-12 h-[1px] bg-brand-lavender/30 mx-auto my-6" />
+
+          <p className="text-[9px] sm:text-[10px] font-sans tracking-[0.2em] text-stone-400 uppercase">
+            Want a beautiful wedding website like this? <br className="sm:hidden" />Create yours with{' '}
+            <a 
+              target="_blank" 
+              rel="noreferrer" 
+              className="text-[#D4AF37] hover:text-brand-plum font-bold underline decoration-[#D4AF37]/40 hover:decoration-brand-plum/40 underline-offset-4 transition-colors" 
+              href="https://wa.me/94707819074"
+            >
+              Invitemint
+            </a>
+          </p>
         </footer>
       </DeferredMount>
     </motion.div>

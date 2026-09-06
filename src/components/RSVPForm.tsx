@@ -18,6 +18,9 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const scriptUrl = "https://script.google.com/macros/s/AKfycbxyOLqbPCF84tUg299jIyA0GuebtYFra-3C-CXxzE851QIQkOs1RRrqBKyYqP6NCSO-/exec";
 
+  const searchParams = new URLSearchParams(window.location.search);
+  const guestsParam = searchParams.get('guests') || '1';
+
   useEffect(() => {
     if (inviteeName) {
       setFormData(prev => ({ ...prev, fullName: inviteeName }));
@@ -34,7 +37,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
       payload.append('sheet', 'RSVP');
       payload.append('fullName', formData.fullName);
       payload.append('attendance', formData.attendance);
-      payload.append('guests', formData.attendance === 'yes' ? '1' : '0'); // Fallback for old sheet column
+      payload.append('guests', formData.attendance === 'yes' ? guestsParam : '0'); 
       payload.append('thoughts', formData.thoughts);
       payload.append('dietaryNotes', formData.thoughts); // Fallback for old sheet column
 
@@ -138,6 +141,17 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-2 ml-2">Reserved Seats</label>
+                  <input
+                    type="text"
+                    readOnly
+                    className="w-full bg-stone-100/80 px-6 py-3 rounded-full border border-stone-200/60 text-stone-500 outline-none transition-all duration-300 font-serif text-base shadow-inner cursor-not-allowed"
+                    value={guestsParam}
+                  />
+                  <p className="text-[9px] text-stone-400 mt-1.5 ml-3 italic">Number of seats reserved in your honor</p>
                 </div>
 
                 <div>

@@ -34,6 +34,13 @@ export default function App() {
     preloadImages([...INVITATION_IMAGE_URLS]).then(() => {
       if (!cancelled) setAssetsReady(true);
     });
+    
+    // Preload video
+    const videoLink = document.createElement('link');
+    videoLink.rel = 'preload';
+    videoLink.as = 'video';
+    videoLink.href = '/intro.mp4';
+    document.head.appendChild(videoLink);
 
     return () => {
       cancelled = true;
@@ -115,6 +122,9 @@ export default function App() {
           />
         )}
       </AnimatePresence>
+      
+      {/* Hidden video to force preload across all devices */}
+      <video src="/intro.mp4" preload="auto" muted playsInline style={{ display: 'none' }} />
     </>
   );
 }

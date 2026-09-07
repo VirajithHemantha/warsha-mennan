@@ -10,16 +10,17 @@ interface RSVPFormProps {
 }
 
 export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName = 'the celebration', eventParam = 'both' }) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const guestsParam = searchParams.get('guests') || '1';
+
   const [formData, setFormData] = useState({
     fullName: inviteeName,
     attendance: 'yes',
+    guests: guestsParam,
     thoughts: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const scriptUrl = "https://script.google.com/macros/s/AKfycbxyOLqbPCF84tUg299jIyA0GuebtYFra-3C-CXxzE851QIQkOs1RRrqBKyYqP6NCSO-/exec";
-
-  const searchParams = new URLSearchParams(window.location.search);
-  const guestsParam = searchParams.get('guests') || '1';
 
   useEffect(() => {
     if (inviteeName) {
@@ -37,7 +38,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
       payload.append('sheet', 'RSVP');
       payload.append('fullName', formData.fullName);
       payload.append('attendance', formData.attendance);
-      payload.append('guests', formData.attendance === 'yes' ? guestsParam : '0'); 
+      payload.append('guests', formData.attendance === 'yes' ? formData.guests : '0'); 
       payload.append('thoughts', formData.thoughts);
       payload.append('dietaryNotes', formData.thoughts); // Fallback for old sheet column
 
@@ -49,7 +50,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
 
       setStatus('success');
       toast.success('Your RSVP has been warmly received!');
-      setFormData({ fullName: inviteeName, attendance: 'yes', thoughts: '' });
+      setFormData({ fullName: inviteeName, attendance: 'yes', guests: guestsParam, thoughts: '' });
     } catch (error) {
       console.error('Error sending RSVP: ', error);
       setStatus('error');
@@ -146,12 +147,13 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                 <div>
                   <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-2 ml-2">Reserved Seats</label>
                   <input
-                    type="text"
-                    readOnly
-                    className="w-full bg-stone-100/80 px-6 py-3 rounded-full border border-stone-200/60 text-stone-500 outline-none transition-all duration-300 font-serif text-base shadow-inner cursor-not-allowed"
-                    value={guestsParam}
+                    type="number"
+                    min="1"
+                    className="w-full bg-white/80 px-6 py-3 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 font-serif italic text-base shadow-inner placeholder:text-stone-300"
+                    value={formData.guests}
+                    onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
                   />
-                  <p className="text-[9px] text-stone-400 mt-1.5 ml-3 italic">Number of seats reserved in your honor</p>
+                  <p className="text-[9px] text-stone-400 mt-1.5 ml-3 italic">Number of seats you will be taking</p>
                 </div>
 
                 <div>
